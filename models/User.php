@@ -18,14 +18,14 @@ use yii\db\ActiveRecord;
  */
 class User extends ActiveRecord
 {
-    const STATUS_DELETED = 0;
-    const STATUS_HIDDEN = 1;
-    const STATUS_ACTIVE = 10;
+    private const STATUS_DELETED = 0;
+    private const STATUS_HIDDEN = 1;
+    private const STATUS_ACTIVE = 10;
 
     /**
      * @inheritdoc
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%user}}';
     }
@@ -33,7 +33,7 @@ class User extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['username', 'created_at', 'updated_at'], 'required'],
@@ -57,7 +57,7 @@ class User extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => Yii::t('app', 'ID'),
@@ -67,9 +67,11 @@ class User extends ActiveRecord
     }
 
     /**
+     * Returns associative array of readable status texts. Key of array is a status code
+     *
      * @return array
      */
-    public static function getStatusTexts()
+    public static function getStatusTexts(): array
     {
         return [
             self::STATUS_ACTIVE => Yii::t('app', 'Active'),
@@ -79,9 +81,11 @@ class User extends ActiveRecord
     }
 
     /**
+     * Returns readable text of user status
+     *
      * @return string
      */
-    public function getStatusText()
+    public function getStatusText(): string
     {
         return self::getStatusTexts()[$this->status] ?? $this->status;
     }
