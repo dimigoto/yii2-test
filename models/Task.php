@@ -85,6 +85,16 @@ class Task extends ActiveRecord
     }
 
     /**
+     * Returns relation declaration with Customer entity
+     *
+     * @return ActiveQuery
+     */
+    public function getCustomer(): ActiveQuery
+    {
+        return $this->hasOne(Customer::class, ['id' => 'customer_id']);
+    }
+
+    /**
      * Returns relation declaration with User entity
      *
      * @return ActiveQuery

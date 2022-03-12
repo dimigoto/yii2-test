@@ -29,27 +29,27 @@ use yii\db\ActiveRecord;
  */
 class Sms extends ActiveRecord
 {
-    const DIRECTION_INCOMING = 0;
-    const DIRECTION_OUTGOING = 1;
+    public const DIRECTION_INCOMING = 0;
+    public const DIRECTION_OUTGOING = 1;
 
     // incoming
-    const STATUS_NEW = 0;
-    const STATUS_READ = 1;
-    const STATUS_ANSWERED = 2;
+    private const STATUS_NEW = 0;
+    private const STATUS_READ = 1;
+    private const STATUS_ANSWERED = 2;
 
     // outgoing
-    const STATUS_DRAFT = 10;
-    const STATUS_WAIT = 11;
-    const STATUS_SENT = 12;
-    const STATUS_DELIVERED = 13;
-    const STATUS_FAILED = 14;
-    const STATUS_SUCCESS = 13;
+    private const STATUS_DRAFT = 10;
+    private const STATUS_WAIT = 11;
+    private const STATUS_SENT = 12;
+    private const STATUS_DELIVERED = 13;
+    private const STATUS_FAILED = 14;
+    private const STATUS_SUCCESS = 13;
 
 
     /**
      * @inheritdoc
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%sms}}';
     }
@@ -57,7 +57,7 @@ class Sms extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['phone_to', 'direction'], 'required'],
@@ -73,7 +73,7 @@ class Sms extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => Yii::t('app', 'ID'),
@@ -93,25 +93,31 @@ class Sms extends ActiveRecord
     }
 
     /**
+     * Returns relation declaration with Customer entity
+     *
      * @return ActiveQuery
      */
-    public function getCustomer()
+    public function getCustomer(): ActiveQuery
     {
         return $this->hasOne(Customer::class, ['id' => 'customer_id']);
     }
 
     /**
+     * Returns relation declaration with User entity
+     *
      * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
     /**
+     * Returns associative array of readable status texts. Key of array is a status code
+     *
      * @return array
      */
-    public static function getStatusTexts()
+    public static function getStatusTexts(): array
     {
         return [
             self::STATUS_NEW => Yii::t('app', 'New'),
@@ -126,8 +132,11 @@ class Sms extends ActiveRecord
     }
 
     /**
+     * Returns readable status text by status code
+     *
      * @param $value
-     * @return mixed
+     *
+     * @return string|int
      */
     public static function getStatusTextByValue($value)
     {
@@ -135,17 +144,21 @@ class Sms extends ActiveRecord
     }
 
     /**
-     * @return mixed|string
+     * Returns readable sms status
+     *
+     * @return string
      */
-    public function getStatusText()
+    public function getStatusText(): string
     {
         return self::getStatusTextByValue($this->status);
     }
 
     /**
+     * Returns associative array of readable directions texts. Key of array is a direction code
+     *
      * @return array
      */
-    public static function getDirectionTexts()
+    public static function getDirectionTexts(): array
     {
         return [
             self::DIRECTION_INCOMING => Yii::t('app', 'Incoming'),
@@ -154,8 +167,11 @@ class Sms extends ActiveRecord
     }
 
     /**
+     * Returns readable direction text by direction code
+     *
      * @param $value
-     * @return mixed
+     *
+     * @return string|int
      */
     public static function getDirectionTextByValue($value)
     {
@@ -163,9 +179,11 @@ class Sms extends ActiveRecord
     }
 
     /**
-     * @return mixed|string
+     * Returns readable sms direction
+     *
+     * @return string
      */
-    public function getDirectionText()
+    public function getDirectionText(): string
     {
         return self::getDirectionTextByValue($this->direction);
     }
