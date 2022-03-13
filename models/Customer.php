@@ -72,9 +72,9 @@ class Customer extends ActiveRecord
      *
      * @param $quality
      *
-     * @return string
+     * @return string|null
      */
-    public static function getQualityTextByQuality($quality): string
+    public static function getQualityTextByQuality($quality): ?string
     {
         return self::getQualityTexts()[$quality] ?? $quality;
     }
