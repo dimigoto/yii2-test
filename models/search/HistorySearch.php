@@ -16,7 +16,7 @@ class HistorySearch extends History
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [];
     }
