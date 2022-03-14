@@ -134,11 +134,11 @@ class Sms extends ActiveRecord
     /**
      * Returns readable status text by status code
      *
-     * @param $value
+     * @param int $value
      *
      * @return string|int
      */
-    public static function getStatusTextByValue($value)
+    public static function getStatusTextByValue(int $value)
     {
         return self::getStatusTexts()[$value] ?? $value;
     }
@@ -169,11 +169,11 @@ class Sms extends ActiveRecord
     /**
      * Returns readable direction text by direction code
      *
-     * @param $value
+     * @param int $value
      *
      * @return string|int
      */
-    public static function getDirectionTextByValue($value)
+    public static function getDirectionTextByValue(int $value)
     {
         return self::getDirectionTexts()[$value] ?? $value;
     }

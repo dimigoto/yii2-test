@@ -140,11 +140,11 @@ class History extends ActiveRecord
     /**
      * Returns readable event text by event code
      *
-     * @param $event
+     * @param string $event
      *
      * @return string
      */
-    public static function getEventTextByEvent($event): string
+    public static function getEventTextByEvent(string $event): string
     {
         return static::getEventTexts()[$event] ?? $event;
     }
@@ -163,11 +163,11 @@ class History extends ActiveRecord
     /**
      * Returns detail of changed $attribute as StdObject or null if attribute doesn't exist
      *
-     * @param $attribute
+     * @param string $attribute
      *
      * @return object|null
      */
-    public function getDetailChangedAttribute($attribute)
+    public function getDetailChangedAttribute(string $attribute)
     {
         $detail = json_decode($this->detail, false);
         return $detail->changedAttributes->{$attribute} ?? null;
@@ -176,11 +176,11 @@ class History extends ActiveRecord
     /**
      * Returns old value of $attribute or null
      *
-     * @param $attribute
+     * @param string $attribute
      *
      * @return string|null
      */
-    public function getDetailOldValue($attribute): ?string
+    public function getDetailOldValue(string $attribute): ?string
     {
         $detail = $this->getDetailChangedAttribute($attribute);
         return $detail->old ?? null;
@@ -189,11 +189,11 @@ class History extends ActiveRecord
     /**
      * Returns new value of $attribute or null
      *
-     * @param $attribute
+     * @param string $attribute
      *
      * @return string|null
      */
-    public function getDetailNewValue($attribute): ?string
+    public function getDetailNewValue(string $attribute): ?string
     {
         $detail = $this->getDetailChangedAttribute($attribute);
         return $detail->new ?? null;
@@ -202,11 +202,11 @@ class History extends ActiveRecord
     /**
      * Returns detail data of $attribute or null if doesn't exist
      *
-     * @param $attribute
+     * @param string $attribute
      *
      * @return object|null
      */
-    public function getDetailData($attribute)
+    public function getDetailData(string $attribute)
     {
         $detail = json_decode($this->detail, false);
         return $detail->data->{$attribute} ?? null;

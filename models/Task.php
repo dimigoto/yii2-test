@@ -121,11 +121,11 @@ class Task extends ActiveRecord
     /**
      * Returns readable status text by status code
      *
-     * @param $value
+     * @param int $value
      *
      * @return string|int
      */
-    public function getStatusTextByValue($value)
+    public function getStatusTextByValue(int $value)
     {
         return self::getStatusTexts()[$value] ?? $value;
     }

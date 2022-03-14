@@ -70,11 +70,11 @@ class Customer extends ActiveRecord
     /**
      * Returns readable quality text by quality code
      *
-     * @param $quality
+     * @param string $quality
      *
      * @return string|null
      */
-    public static function getQualityTextByQuality($quality): ?string
+    public static function getQualityTextByQuality(string $quality): ?string
     {
         return self::getQualityTexts()[$quality] ?? $quality;
     }
@@ -96,11 +96,11 @@ class Customer extends ActiveRecord
     /**
      * Returns readable type text by type code
      *
-     * @param $type
+     * @param string $type
      *
      * @return mixed
      */
-    public static function getTypeTextByType($type): string
+    public static function getTypeTextByType(string $type): string
     {
         return self::getTypeTexts()[$type] ?? $type;
     }
