@@ -27,6 +27,7 @@ use yii\db\ActiveRecord;
  * @property boolean $isDone
  *
  * @property User $user
+ * @property Customer $customer
  *
  *
  * @property string $isInbox

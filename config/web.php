@@ -1,6 +1,7 @@
 <?php
 
 use app\models\User;
+use yii\i18n\PhpMessageSource;
 use yii\swiftmailer\Mailer;
 use yii\log\FileTarget;
 use yii\debug\Module;
@@ -19,12 +20,8 @@ $config = [
     'name' => 'Americor Test',
     'components' => [
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '_KrWQvmDJum_stF3vIO3MgXIyKn-rX28',
         ],
-//        'cache' => [
-//            'class' => 'yii\caching\FileCache',
-//        ],
         'user' => [
             'identityClass' => User::class,
             'enableAutoLogin' => true,
@@ -34,9 +31,6 @@ $config = [
         ],
         'mailer' => [
             'class' => Mailer::class,
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
         'log' => [
@@ -49,14 +43,17 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
-        ],
-        */
+        'i18n' => [
+            'translations' => [
+                '*' => [
+                    'class' => PhpMessageSource::class,
+                    'fileMap' => [
+                        'attribute_quality' => 'attribute_quality.php',
+                        'attribute_type' => 'attribute_type.php'
+                    ]
+                ]
+            ]
+        ]
     ],
     'modules' => [
         'gridview' => [
@@ -67,20 +64,15 @@ $config = [
 ];
 
 if (YII_ENV_DEV) {
-    // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => Module::class,
         'allowedIPs' => ['*'],
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => \yii\gii\Module::class,
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
 

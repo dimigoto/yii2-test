@@ -126,7 +126,7 @@ class Call extends ActiveRecord
             return Yii::t('app', 'Missed Call');
         }
 
-        if ($this->isClientDidNotAnswer()) {
+        if (!$this->isClientAnswer()) {
             return Yii::t('app', 'Client No Answer');
         }
 
@@ -210,10 +210,20 @@ class Call extends ActiveRecord
      *
      * @return bool
      */
-    public function isClientDidNotAnswer(): bool
+    public function isClientAnswer(): bool
     {
-        return $this->status === self::STATUS_NO_ANSWERED
+        return $this->status !== self::STATUS_NO_ANSWERED
             && $this->direction === self::DIRECTION_OUTGOING;
+    }
+
+    /**
+     * Returns call comment
+     *
+     * @return string
+     */
+    public function getComment(): string
+    {
+        return $this->comment ?? '';
     }
 
     /**

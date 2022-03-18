@@ -187,4 +187,30 @@ class Sms extends ActiveRecord
     {
         return self::getDirectionTextByValue($this->direction);
     }
+
+    /**
+     * Returns true if SMS is incoming
+     *
+     * @return bool
+     */
+    public function isIncoming(): bool
+    {
+        return $this->direction === self::DIRECTION_INCOMING;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSenderPhone(): string
+    {
+        return $this->phone_from ?? '';
+    }
+
+    /**
+     * @return string
+     */
+    public function getReceiverPhone(): string
+    {
+        return $this->phone_to ?? '';
+    }
 }

@@ -27,6 +27,7 @@ use yii\db\ActiveRecord;
  *
  * @property Task $task
  * @property Sms $sms
+ * @property Fax $fax
  * @property Call $call
  */
 class History extends ActiveRecord
@@ -170,6 +171,7 @@ class History extends ActiveRecord
     public function getDetailChangedAttribute(string $attribute)
     {
         $detail = json_decode($this->detail, false);
+
         return $detail->changedAttributes->{$attribute} ?? null;
     }
 
@@ -180,10 +182,11 @@ class History extends ActiveRecord
      *
      * @return string|null
      */
-    public function getDetailOldValue(string $attribute): ?string
+    public function getDetailOldValue(string $attribute): string
     {
         $detail = $this->getDetailChangedAttribute($attribute);
-        return $detail->old ?? null;
+
+        return $detail->old ?? '';
     }
 
     /**
@@ -193,10 +196,10 @@ class History extends ActiveRecord
      *
      * @return string|null
      */
-    public function getDetailNewValue(string $attribute): ?string
+    public function getDetailNewValue(string $attribute): string
     {
         $detail = $this->getDetailChangedAttribute($attribute);
-        return $detail->new ?? null;
+        return $detail->new ?? '';
     }
 
     /**
