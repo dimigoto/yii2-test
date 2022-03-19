@@ -13,6 +13,9 @@ use yii\base\Widget;
 
 class EventWidgetFactory
 {
+    /**
+     * Map of event type to event widget class. Could be move to config
+     */
     private const EVENTS_MAP = [
         History::EVENT_CREATED_TASK => BaseEventWidget::class,
         History::EVENT_COMPLETED_TASK => BaseEventWidget::class,
@@ -40,6 +43,8 @@ class EventWidgetFactory
     }
 
     /**
+     * Creates widget
+     *
      * @param string $eventType
      *
      * @return Widget
@@ -54,6 +59,8 @@ class EventWidgetFactory
     }
 
     /**
+     * Returns widget classname by event type. Null if widget class have not register
+     *
      * @param string $eventType
      *
      * @return string|null

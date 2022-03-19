@@ -11,6 +11,8 @@ abstract class BaseAttributeChangeEventPresenter extends BaseEventWidgetPresente
     private const MESSAGES_PREFIX = 'attribute';
 
     /**
+     * Return changed attribute
+     *
      * @return string
      */
     abstract protected function getAttribute(): string;
@@ -57,6 +59,8 @@ abstract class BaseAttributeChangeEventPresenter extends BaseEventWidgetPresente
     }
 
     /**
+     * Returns old value of attribute
+     *
      * @return string
      */
     protected function getOldValue(): string
@@ -74,6 +78,8 @@ abstract class BaseAttributeChangeEventPresenter extends BaseEventWidgetPresente
     }
 
     /**
+     * Returns new value of attribute
+     *
      * @return string
      */
     protected function getNewValue(): string

@@ -35,6 +35,8 @@ class TaskEventPresenter extends BaseEventWidgetPresenter
     }
 
     /**
+     * Returns footer text
+     *
      * @return string
      */
     public function getFooter(): string

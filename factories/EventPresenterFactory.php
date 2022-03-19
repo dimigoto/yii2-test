@@ -16,6 +16,9 @@ use app\widgets\HistoryList\interfaces\EventWidgetPresenterInterface;
 
 class EventPresenterFactory
 {
+    /**
+     * Map of event type to presenter class. Could be move to config
+     */
     private const EVENTS_MAP = [
         History::EVENT_CREATED_TASK => TaskEventPresenter::class,
         History::EVENT_COMPLETED_TASK => TaskEventPresenter::class,
@@ -42,6 +45,8 @@ class EventPresenterFactory
     }
 
     /**
+     * Creates event presenter
+     *
      * @param History $event
      *
      * @return EventWidgetPresenterInterface
@@ -54,6 +59,8 @@ class EventPresenterFactory
     }
 
     /**
+     * Returns event presenter classname by event type. Null if event presenter class have not register
+     *
      * @param string $type
      *
      * @return string|null

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace app\widgets\EventWidget;
 
-use Exception;
 use Yii;
 use yii\helpers\Html;
 
@@ -20,7 +19,7 @@ class CallEventWidget extends BaseEventWidget
     public $totalDisposition;
 
     /**
-     * @return bool
+     * @inheritdoc
      */
     protected function needRenderBody(): bool
     {
@@ -28,8 +27,7 @@ class CallEventWidget extends BaseEventWidget
     }
 
     /**
-     * @return string
-     * @throws Exception
+     * @inheritdoc
      */
     protected function renderBody(): string
     {

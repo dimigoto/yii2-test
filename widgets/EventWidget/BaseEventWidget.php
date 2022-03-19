@@ -27,7 +27,8 @@ class BaseEventWidget extends Widget
     public $footerDatetime;
 
     /**
-     * @return string
+     * @inheritdoc
+     *
      * @throws Exception
      */
     public function run(): string
@@ -42,6 +43,8 @@ class BaseEventWidget extends Widget
     }
 
     /**
+     * Returns true whether to render icon
+     *
      * @return bool
      */
     protected function needRenderIcon(): bool
@@ -50,6 +53,8 @@ class BaseEventWidget extends Widget
     }
 
     /**
+     * Returns string with rendered icon template
+     *
      * @return string
      */
     protected function renderIcon(): string
@@ -64,6 +69,8 @@ class BaseEventWidget extends Widget
     }
 
     /**
+     * Returns css classes of icons
+     *
      * @return string
      */
     protected function getIconClass(): string
@@ -90,6 +97,8 @@ class BaseEventWidget extends Widget
     }
 
     /**
+     * Returns true whether to render body
+     *
      * @return bool
      */
     protected function needRenderBody(): bool
@@ -98,7 +107,10 @@ class BaseEventWidget extends Widget
     }
 
     /**
+     * Returns string with rendered body template
+     *
      * @return string
+     *
      * @throws Exception
      */
     protected function renderBody(): string
@@ -121,6 +133,8 @@ class BaseEventWidget extends Widget
     }
 
     /**
+     * Returns true whether to render username
+     *
      * @return bool
      */
     protected function needRenderUsername(): bool
@@ -129,6 +143,8 @@ class BaseEventWidget extends Widget
     }
 
     /**
+     * Returns string with rendered username template
+     *
      * @return string
      */
     protected function renderUsername(): string
@@ -137,6 +153,8 @@ class BaseEventWidget extends Widget
     }
 
     /**
+     * Returns true whether to render content
+     *
      * @return bool
      */
     protected function needRenderContent(): bool
@@ -145,6 +163,8 @@ class BaseEventWidget extends Widget
     }
 
     /**
+     * Returns string with rendered content template
+     *
      * @return string
      */
     protected function renderContent(): string
@@ -153,6 +173,8 @@ class BaseEventWidget extends Widget
     }
 
     /**
+     * Returns true whether to render footer
+     *
      * @return bool
      */
     protected function needRenderFooter(): bool
@@ -161,7 +183,10 @@ class BaseEventWidget extends Widget
     }
 
     /**
+     * Returns string with rendered footer template
+     *
      * @return string
+     *
      * @throws Exception
      */
     protected function renderFooter(): string

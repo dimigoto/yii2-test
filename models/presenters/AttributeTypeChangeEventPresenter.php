@@ -6,7 +6,6 @@ namespace app\models\presenters;
 
 class AttributeTypeChangeEventPresenter extends BaseAttributeChangeEventPresenter
 {
-
     /**
      * @inheritdoc
      */

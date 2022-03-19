@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace app\widgets\HistoryList\interfaces;
 
-use app\models\History;
-
 interface EventWidgetPresenterInterface
 {
     /**
@@ -16,6 +14,8 @@ interface EventWidgetPresenterInterface
     public function widgetParams(): array;
 
     /**
+     * Returns event type
+     *
      * @return string
      */
     public function getEventType(): string;

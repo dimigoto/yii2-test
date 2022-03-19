@@ -19,7 +19,7 @@ class AttributeChangeEventWidget extends BaseEventWidget
     public $newValue;
 
     /**
-     * @return bool
+     * @inheritdoc
      */
     protected function needRenderBody(): bool
     {
@@ -27,9 +27,8 @@ class AttributeChangeEventWidget extends BaseEventWidget
     }
 
     /**
-     * @return string
      *
-     * @throws Exception
+     * @inheritdoc
      */
     protected function renderBody(): string
     {
@@ -68,6 +67,8 @@ class AttributeChangeEventWidget extends BaseEventWidget
     }
 
     /**
+     * Returns value, or templated 'not set' text
+     *
      * @param string $value
      *
      * @return string

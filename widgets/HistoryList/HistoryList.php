@@ -15,7 +15,7 @@ class HistoryList extends Widget
     public $model;
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function run(): string
     {
@@ -27,6 +27,8 @@ class HistoryList extends Widget
     }
 
     /**
+     * returns URL to export data in CSV
+     *
      * @return string
      */
     private function getExportButtonUrl(): string

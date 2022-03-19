@@ -9,10 +9,18 @@ use yii\helpers\Html;
 
 class ButtonPanelWidget extends Widget
 {
+    /** @var bool */
     public $showExportButton;
+
+    /** @var string */
     public $exportButtonText;
+
+    /** @var string */
     public $exportButtonUrl;
 
+    /**
+     * @inheritdoc
+     */
     public function run(): string
     {
         $result = '';
@@ -25,6 +33,8 @@ class ButtonPanelWidget extends Widget
     }
 
     /**
+     * Returns string of rendered export button template
+     *
      * @return string
      */
     private function renderExportButton(): string

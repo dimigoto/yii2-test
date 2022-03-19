@@ -28,7 +28,7 @@ abstract class BaseEventWidgetPresenter implements EventWidgetPresenterInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getUsername(): string
     {
@@ -36,7 +36,7 @@ abstract class BaseEventWidgetPresenter implements EventWidgetPresenterInterface
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getDatetime(): string
     {
@@ -68,6 +68,8 @@ abstract class BaseEventWidgetPresenter implements EventWidgetPresenterInterface
     }
 
     /**
+     * Returns icon css classes
+     *
      * @return string
      */
     protected function getIconClass(): string
@@ -76,6 +78,8 @@ abstract class BaseEventWidgetPresenter implements EventWidgetPresenterInterface
     }
 
     /**
+     * Returns body text
+     *
      * @return string
      */
     protected function getBody(): string

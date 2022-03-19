@@ -38,7 +38,7 @@ class CallEventPresenter extends BaseEventWidgetPresenter
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getMessage(): string
     {
@@ -50,6 +50,8 @@ class CallEventPresenter extends BaseEventWidgetPresenter
     }
 
     /**
+     * Returns content text
+     *
      * @return string
      */
     public function getContent(): string
@@ -68,6 +70,8 @@ class CallEventPresenter extends BaseEventWidgetPresenter
     }
 
     /**
+     * Returns true whether call is null
+     *
      * @return bool
      */
     private function isCallDeleted(): bool
@@ -76,6 +80,8 @@ class CallEventPresenter extends BaseEventWidgetPresenter
     }
 
     /**
+     * Returns true whether call has been answered
+     *
      * @return bool
      */
     private function isAnswered(): bool
@@ -84,6 +90,8 @@ class CallEventPresenter extends BaseEventWidgetPresenter
     }
 
     /**
+     * Returns call total disposition
+     *
      * @return string
      */
     private function getTotalDisposition(): string
@@ -92,6 +100,8 @@ class CallEventPresenter extends BaseEventWidgetPresenter
     }
 
     /**
+     * Returns call total status text
+     *
      * @return string
      */
     private function getTotalStatusText(): string
