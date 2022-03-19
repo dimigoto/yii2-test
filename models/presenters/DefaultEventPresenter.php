@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace app\presenters;
+namespace app\models\presenters;
 
 class DefaultEventPresenter extends BaseEventWidgetPresenter
 {
@@ -14,7 +14,7 @@ class DefaultEventPresenter extends BaseEventWidgetPresenter
         return [
             'username' => $this->getUsername(),
             'body' => $this->getBody(),
-            'bodyDatetime' => $this->getDateTime(),
+            'bodyDatetime' => $this->getDatetime(),
             'iconType' => $this->getIconClass()
         ];
     }

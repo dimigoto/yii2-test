@@ -11,6 +11,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'language' => 'en-US',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -45,12 +46,9 @@ $config = [
         'db' => $db,
         'i18n' => [
             'translations' => [
-                '*' => [
+                'app*' => [
                     'class' => PhpMessageSource::class,
-                    'fileMap' => [
-                        'attribute_quality' => 'attribute_quality.php',
-                        'attribute_type' => 'attribute_type.php'
-                    ]
+                    'forceTranslation' => true,
                 ]
             ]
         ]

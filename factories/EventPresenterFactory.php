@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace app\factories;
 
 use app\models\History;
-use app\presenters\AttributeQualityChangeEventPresenter;
-use app\presenters\AttributeTypeChangeEventPresenter;
-use app\presenters\CallEventPresenter;
-use app\presenters\DefaultEventPresenter;
-use app\presenters\FaxEventPresenter;
-use app\presenters\SmsEventPresenter;
-use app\presenters\TaskEventPresenter;
+use app\models\presenters\AttributeQualityChangeEventPresenter;
+use app\models\presenters\AttributeTypeChangeEventPresenter;
+use app\models\presenters\CallEventPresenter;
+use app\models\presenters\DefaultEventPresenter;
+use app\models\presenters\FaxEventPresenter;
+use app\models\presenters\SmsEventPresenter;
+use app\models\presenters\TaskEventPresenter;
 use app\widgets\HistoryList\interfaces\EventWidgetPresenterInterface;
 
 class EventPresenterFactory

@@ -9,6 +9,7 @@
 
 use app\models\History;
 use app\widgets\Export\Export;
+use app\widgets\Export\interfaces\ExportPresenterInterface;
 use app\widgets\HistoryList\helpers\HistoryListHelper;
 
 $filename = 'history';
@@ -22,32 +23,35 @@ ini_set('memory_limit', '2048M');
     'dataProvider' => $dataProvider,
     'columns' => [
         [
-            'attribute' => 'ins_ts',
             'label' => Yii::t('app', 'Date'),
-            'format' => 'datetime'
+            'format' => 'datetime',
+            'value' => static function (ExportPresenterInterface $presenter) {
+                return $presenter->getDatetime();
+            }
+
         ],
         [
             'label' => Yii::t('app', 'User'),
-            'value' => function (History $model) {
-                return isset($model->user) ? $model->user->username : Yii::t('app', 'System');
+            'value' => static function (ExportPresenterInterface $presenter) {
+                return !empty($presenter->getUsername()) ? $presenter->getUsername() : Yii::t('app', 'System');
             }
         ],
         [
             'label' => Yii::t('app', 'Type'),
-            'value' => function (History $model) {
-                return $model->object;
+            'value' => static function (ExportPresenterInterface $presenter) {
+                return $presenter->getObjectType();
             }
         ],
         [
             'label' => Yii::t('app', 'Event'),
-            'value' => function (History $model) {
-                return $model->eventText;
+            'value' => static function (ExportPresenterInterface $presenter) {
+                return $presenter->getEventText();
             }
         ],
         [
             'label' => Yii::t('app', 'Message'),
-            'value' => function (History $model) {
-                return strip_tags(HistoryListHelper::getBodyByModel($model));
+            'value' => static function (ExportPresenterInterface $presenter) {
+                return $presenter->getMessage();
             }
         ]
     ],

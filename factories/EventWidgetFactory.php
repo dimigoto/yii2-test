@@ -8,6 +8,7 @@ use app\models\History;
 use app\widgets\EventWidget\AttributeChangeEventWidget;
 use app\widgets\EventWidget\BaseEventWidget;
 use app\widgets\EventWidget\CallEventWidget;
+use app\widgets\HistoryList\interfaces\EventWidgetPresenterInterface;
 use yii\base\Widget;
 
 class EventWidgetFactory
@@ -26,31 +27,30 @@ class EventWidgetFactory
         History::EVENT_OUTGOING_CALL => CallEventWidget::class,
     ];
 
-    /** @var EventPresenterFactory */
-    private $eventPresenterFactory;
+    /** @var EventWidgetPresenterInterface */
+    private $eventPresenter;
 
     /** @var string[] */
     private $eventMap;
 
-    public function __construct(EventPresenterFactory $eventPresenterFactory, array $eventMap = [])
+    public function __construct(EventWidgetPresenterInterface $eventPresenter, array $eventMap = [])
     {
-        $this->eventPresenterFactory = $eventPresenterFactory;
+        $this->eventPresenter = $eventPresenter;
         $this->eventMap = ($eventMap === []) ? static::EVENTS_MAP : $eventMap;
     }
 
     /**
-     * @param History $event
+     * @param string $eventType
      *
      * @return Widget
      */
-    public function create(History $event): Widget
+    public function create(string $eventType): Widget
     {
-        $eventPresenter = $this->eventPresenterFactory->create($event);
-        $widgetClass = $this->getWidgetClassByEventType($event->event);
+        $widgetClass = $this->getWidgetClassByEventType($eventType);
 
         return $widgetClass !== null
-            ? new $widgetClass($eventPresenter->widgetParams())
-            : new BaseEventWidget($eventPresenter->widgetParams());
+            ? new $widgetClass($this->eventPresenter->widgetParams())
+            : new BaseEventWidget($this->eventPresenter->widgetParams());
     }
 
     /**

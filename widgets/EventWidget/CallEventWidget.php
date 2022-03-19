@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace app\widgets\EventWidget;
 
 use Exception;
+use Yii;
 use yii\helpers\Html;
 
 class CallEventWidget extends BaseEventWidget
@@ -33,7 +34,7 @@ class CallEventWidget extends BaseEventWidget
     protected function renderBody(): string
     {
         if ($this->isCallDeleted) {
-            $result = Html::tag('i', 'Deleted');
+            $result = Html::tag('i', Yii::t('app', 'Deleted'));
         } else {
             $totalDisposition = !empty($this->totalDisposition)
                 ? Html::tag('span', $this->totalDisposition, ['class' => 'text-grey'])

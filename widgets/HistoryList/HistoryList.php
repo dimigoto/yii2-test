@@ -12,17 +12,17 @@ use Yii;
 
 class HistoryList extends Widget
 {
+    public $model;
+
     /**
      * @return string
      */
     public function run(): string
     {
-        $model = new HistorySearch();
-
         return $this->render('main', [
             'exportButtonUrl' => $this->getExportButtonUrl(),
             'exportButtonText' => Yii::t('app', 'CSV'),
-            'dataProvider' => $model->search(Yii::$app->request->queryParams)
+            'dataProvider' => $this->model->search(Yii::$app->request->queryParams)
         ]);
     }
 

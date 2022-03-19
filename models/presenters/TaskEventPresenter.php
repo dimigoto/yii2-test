@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace app\presenters;
+namespace app\models\presenters;
 
 use app\widgets\EventWidget\BaseEventWidget;
 
@@ -18,7 +18,7 @@ class TaskEventPresenter extends BaseEventWidgetPresenter
             'username' => $this->getUsername(),
             'body' => $this->getBody(),
             'footer' => $this->getFooter(),
-            'footerDatetime' => $this->getDateTime(),
+            'footerDatetime' => $this->getDatetime(),
         ];
     }
 

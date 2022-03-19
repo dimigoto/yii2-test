@@ -10,6 +10,8 @@ use yii\helpers\Html;
 
 class AttributeChangeEventWidget extends BaseEventWidget
 {
+    private const NOT_SET_VALUE = 'not set';
+
     /** @var string */
     public $oldValue;
 
@@ -72,6 +74,6 @@ class AttributeChangeEventWidget extends BaseEventWidget
      */
     private function valueOrNotSet(string $value): string
     {
-        return !empty($value) ? $value : Html::tag('i', 'not set');
+        return ($value !== static::NOT_SET_VALUE) ? $value : Html::tag('i', $value);
     }
 }

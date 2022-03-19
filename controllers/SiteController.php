@@ -2,13 +2,16 @@
 
 namespace app\controllers;
 
+use app\factories\EventPresenterFactory;
 use app\models\search\HistorySearch;
 use Yii;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\web\ErrorAction;
 
 class SiteController extends Controller
 {
+    private $historySearch;
 
     /**
      * {@inheritdoc}
@@ -23,13 +26,31 @@ class SiteController extends Controller
     }
 
     /**
+     * @param $action
+     *
+     * @return bool
+     *
+     * @throws BadRequestHttpException
+     */
+    public function beforeAction($action): bool
+    {
+        $this->historySearch = new HistorySearch(
+            [
+                'eventPresenterFactory' => new EventPresenterFactory()
+            ]
+        );
+
+        return parent::beforeAction($action);
+    }
+
+    /**
      * Displays homepage.
      *
      * @return string
      */
     public function actionIndex(): string
     {
-        return $this->render('index');
+        return $this->render('index', ['model' => $this->historySearch]);
     }
 
 
@@ -40,10 +61,8 @@ class SiteController extends Controller
      */
     public function actionExport(string $exportType): string
     {
-        $model = new HistorySearch();
-
         return $this->render('export', [
-            'dataProvider' => $model->search(Yii::$app->request->queryParams),
+            'dataProvider' => $this->historySearch->search(Yii::$app->request->queryParams),
             'exportType' => $exportType,
         ]);
     }

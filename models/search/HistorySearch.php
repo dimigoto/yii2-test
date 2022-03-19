@@ -2,9 +2,11 @@
 
 namespace app\models\search;
 
+use app\decorators\PresenterDataProviderDecorator;
 use app\models\History;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use yii\data\DataProviderInterface;
 
 /**
  * HistorySearch represents the model behind the search form about `app\models\History`.
@@ -13,6 +15,8 @@ use yii\data\ActiveDataProvider;
  */
 class HistorySearch extends History
 {
+    public $eventPresenterFactory;
+
     /**
      * @inheritdoc
      */
@@ -24,7 +28,7 @@ class HistorySearch extends History
     /**
      * @inheritdoc
      */
-    public function scenarios()
+    public function scenarios(): array
     {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
@@ -35,9 +39,9 @@ class HistorySearch extends History
      *
      * @param array $params
      *
-     * @return ActiveDataProvider
+     * @return DataProviderInterface
      */
-    public function search($params)
+    public function search(array $params): DataProviderInterface
     {
         $query = History::find();
 
@@ -54,12 +58,20 @@ class HistorySearch extends History
             ],
         ]);
 
+        $result = new PresenterDataProviderDecorator(
+            [
+                'dataProvider' => $dataProvider,
+                'eventPresenterFactory' => $this->eventPresenterFactory
+            ]
+        );
+
         $this->load($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             $query->where('0=1');
-            return $dataProvider;
+
+            return $result;
         }
 
         $query->addSelect('history.*');
@@ -72,6 +84,6 @@ class HistorySearch extends History
             'fax',
         ]);
 
-        return $dataProvider;
+        return $result;
     }
 }

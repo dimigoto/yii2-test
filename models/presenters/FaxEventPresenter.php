@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace app\presenters;
+namespace app\models\presenters;
 
 use app\models\Fax;
 use app\models\History;
@@ -31,7 +31,7 @@ class FaxEventPresenter extends BaseEventWidgetPresenter
             'username' => $this->getUsername(),
             'body' => $this->getBody(),
             'footer' => $this->getFooter(),
-            'footerDatetime' => $this->getDateTime(),
+            'footerDatetime' => $this->getDatetime(),
         ];
     }
 

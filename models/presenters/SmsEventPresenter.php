@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace app\presenters;
+namespace app\models\presenters;
 
 use app\models\History;
 use app\models\Sms;
@@ -31,7 +31,7 @@ class SmsEventPresenter extends BaseEventWidgetPresenter
             'username' => $this->getUsername(),
             'body' => $this->getBody(),
             'footer' => $this->getFooter(),
-            'footerDatetime' => $this->getDateTime(),
+            'footerDatetime' => $this->getDatetime(),
         ];
     }
 
