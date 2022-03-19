@@ -23,9 +23,6 @@ use yii\db\ActiveRecord;
  */
 class Fax extends ActiveRecord
 {
-    private const DIRECTION_INCOMING = 0;
-    private const DIRECTION_OUTGOING = 1;
-
     private const TYPE_POA_ATC = 'poa_atc';
     private const TYPE_REVOCATION_NOTICE = 'revocation_notice';
 
@@ -97,5 +94,4 @@ class Fax extends ActiveRecord
     {
         return self::getTypeTexts()[$this->type] ?? $this->type;
     }
-
 }
