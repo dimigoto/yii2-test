@@ -23,13 +23,9 @@ class PresenterDataProviderDecorator extends Component implements DataProviderIn
      */
     public function getModels(): array
     {
-        $result = [];
-
-        foreach ($this->dataProvider->getModels() as $model) {
-            $result[] = $this->eventPresenterFactory->create($model);
-        }
-
-        return $result;
+        return array_map(function($model) {
+            return $this->eventPresenterFactory->create($model);
+        }, $this->dataProvider->getModels());
     }
 
     /**

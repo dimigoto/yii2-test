@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\components\StreamExport\factories\StreamExportFactory;
 use app\factories\EventPresenterFactory;
 use app\models\search\HistorySearch;
 use Yii;
@@ -65,5 +66,23 @@ class SiteController extends Controller
             'dataProvider' => $this->historySearch->search(Yii::$app->request->queryParams),
             'exportType' => $exportType,
         ]);
+    }
+
+    /**
+     * @return void
+     */
+    public function actionStreamExport(): void
+    {
+        $streamExportFactory = new StreamExportFactory(
+            $this->historySearch->search(Yii::$app->request->queryParams),
+            Yii::$app->getFormatter(),
+            'history-' . time(),
+            1000
+        );
+
+        $streamExport = $streamExportFactory->create();
+        $streamExport->export();
+
+        exit();
     }
 }

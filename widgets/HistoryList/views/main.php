@@ -9,6 +9,8 @@ use yii\widgets\Pjax;
 /* @var $dataProvider ActiveDataProvider */
 /* @var $exportButtonUrl string */
 /* @var $exportButtonText string */
+/* @var $streamExportButtonText string */
+/* @var $streamExportButtonUrl string */
 
 ?>
 
@@ -17,8 +19,11 @@ use yii\widgets\Pjax;
 <?= ButtonPanelWidget::widget(
     [
         'showExportButton' => true,
+        'showStreamExportButton' => true,
         'exportButtonUrl' => $exportButtonUrl,
-        'exportButtonText' => $exportButtonText
+        'exportButtonText' => $exportButtonText,
+        'streamExportButtonText' => $streamExportButtonText,
+        'streamExportButtonUrl' => $streamExportButtonUrl,
     ]
 ) ?>
 

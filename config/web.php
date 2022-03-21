@@ -40,6 +40,7 @@ $config = [
                 [
                     'class' => FileTarget::class,
                     'levels' => ['error', 'warning'],
+                    'logVars' => []
                 ],
             ],
         ],

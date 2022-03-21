@@ -7,10 +7,8 @@
  * @var $exportType string
  */
 
-use app\models\History;
 use app\widgets\Export\Export;
 use app\widgets\Export\interfaces\ExportPresenterInterface;
-use app\widgets\HistoryList\helpers\HistoryListHelper;
 
 $filename = 'history';
 $filename .= '-' . time();

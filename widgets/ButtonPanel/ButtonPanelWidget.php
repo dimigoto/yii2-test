@@ -18,6 +18,15 @@ class ButtonPanelWidget extends Widget
     /** @var string */
     public $exportButtonUrl;
 
+    /** @var bool */
+    public $showStreamExportButton;
+
+    /** @var string */
+    public $streamExportButtonText;
+
+    /** @var string */
+    public $streamExportButtonUrl;
+
     /**
      * @inheritdoc
      */
@@ -27,6 +36,10 @@ class ButtonPanelWidget extends Widget
 
         if ($this->showExportButton) {
             $result .= $this->renderExportButton();
+        }
+
+        if ($this->showStreamExportButton) {
+            $result .= $this->renderStreamExportButton();
         }
 
         return $this->render('main', ['buttons' => $result]);
@@ -42,6 +55,23 @@ class ButtonPanelWidget extends Widget
         return Html::a(
             $this->exportButtonText,
             $this->exportButtonUrl,
+            [
+                'class' => 'btn btn-success',
+                'data-pjax' => 0
+            ]
+        );
+    }
+
+    /**
+     * Returns string of rendered stream export button template
+     *
+     * @return string
+     */
+    private function renderStreamExportButton(): string
+    {
+        return Html::a(
+            $this->streamExportButtonText,
+            $this->streamExportButtonUrl,
             [
                 'class' => 'btn btn-success',
                 'data-pjax' => 0

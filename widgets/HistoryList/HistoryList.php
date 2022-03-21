@@ -22,6 +22,8 @@ class HistoryList extends Widget
         return $this->render('main', [
             'exportButtonUrl' => $this->getExportButtonUrl(),
             'exportButtonText' => Yii::t('app', 'CSV'),
+            'streamExportButtonText' => Yii::t('app', 'Stream CSV'),
+            'streamExportButtonUrl' => Url::to(['/site/stream-export']),
             'dataProvider' => $this->model->search(Yii::$app->request->queryParams)
         ]);
     }
