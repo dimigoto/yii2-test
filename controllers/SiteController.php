@@ -2,23 +2,46 @@
 
 namespace app\controllers;
 
+use app\components\StreamExport\factories\StreamExportFactory;
+use app\factories\EventPresenterFactory;
 use app\models\search\HistorySearch;
 use Yii;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
+use yii\web\ErrorAction;
 
 class SiteController extends Controller
 {
+    private $historySearch;
 
     /**
      * {@inheritdoc}
      */
-    public function actions()
+    public function actions(): array
     {
         return [
             'error' => [
-                'class' => 'yii\web\ErrorAction',
+                'class' => ErrorAction::class,
             ]
         ];
+    }
+
+    /**
+     * @param $action
+     *
+     * @return bool
+     *
+     * @throws BadRequestHttpException
+     */
+    public function beforeAction($action): bool
+    {
+        $this->historySearch = new HistorySearch(
+            [
+                'eventPresenterFactory' => new EventPresenterFactory()
+            ]
+        );
+
+        return parent::beforeAction($action);
     }
 
     /**
@@ -26,24 +49,40 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex(): string
     {
-        return $this->render('index');
+        return $this->render('index', ['model' => $this->historySearch]);
     }
 
 
     /**
      * @param string $exportType
+     *
      * @return string
      */
-    public function actionExport($exportType)
+    public function actionExport(string $exportType): string
     {
-        $model = new HistorySearch();
-
         return $this->render('export', [
-            'dataProvider' => $model->search(Yii::$app->request->queryParams),
+            'dataProvider' => $this->historySearch->search(Yii::$app->request->queryParams),
             'exportType' => $exportType,
-            'model' => $model
         ]);
+    }
+
+    /**
+     * @return void
+     */
+    public function actionStreamExport(): void
+    {
+        $streamExportFactory = new StreamExportFactory(
+            $this->historySearch->search(Yii::$app->request->queryParams),
+            Yii::$app->getFormatter(),
+            'history-' . time(),
+            1000
+        );
+
+        $streamExport = $streamExportFactory->create();
+        $streamExport->export();
+
+        exit();
     }
 }

@@ -1,10 +1,17 @@
 <?php
 
+use app\models\User;
+use yii\i18n\PhpMessageSource;
+use yii\swiftmailer\Mailer;
+use yii\log\FileTarget;
+use yii\debug\Module;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'language' => 'en-US',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -14,67 +21,57 @@ $config = [
     'name' => 'Americor Test',
     'components' => [
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => '_KrWQvmDJum_stF3vIO3MgXIyKn-rX28',
         ],
-//        'cache' => [
-//            'class' => 'yii\caching\FileCache',
-//        ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => User::class,
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
         'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
+            'class' => Mailer::class,
             'useFileTransport' => true,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
                 [
-                    'class' => 'yii\log\FileTarget',
+                    'class' => FileTarget::class,
                     'levels' => ['error', 'warning'],
+                    'logVars' => []
                 ],
             ],
         ],
         'db' => $db,
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
-        ],
-        */
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => PhpMessageSource::class,
+                    'forceTranslation' => true,
+                ]
+            ]
+        ]
     ],
     'modules' => [
         'gridview' => [
-            'class' => '\kartik\grid\Module'
+            'class' => \kartik\grid\Module::class
         ]
     ],
     'params' => $params,
 ];
 
 if (YII_ENV_DEV) {
-    // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
-        'class' => 'yii\debug\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
+        'class' => Module::class,
+        'allowedIPs' => ['*'],
     ];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
-        'class' => 'yii\gii\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
-        //'allowedIPs' => ['127.0.0.1', '::1'],
+        'class' => \yii\gii\Module::class,
     ];
 }
 

@@ -26,8 +26,8 @@ use yii\db\ActiveRecord;
  * @property boolean $isOverdue
  * @property boolean $isDone
  *
- * @property Customer $customer
  * @property User $user
+ * @property Customer $customer
  *
  *
  * @property string $isInbox
@@ -35,18 +35,18 @@ use yii\db\ActiveRecord;
  */
 class Task extends ActiveRecord
 {
-    const STATUS_NEW = 0;
-    const STATUS_DONE = 1;
-    const STATUS_CANCEL = 3;
+    private const STATUS_NEW = 0;
+    private const STATUS_DONE = 1;
+    private const STATUS_CANCEL = 3;
 
-    const STATE_INBOX = 'inbox';
-    const STATE_DONE = 'done';
-    const STATE_FUTURE = 'future';
+    private const STATE_INBOX = 'inbox';
+    private const STATE_DONE = 'done';
+    private const STATE_FUTURE = 'future';
 
     /**
      * @inheritdoc
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%task}}';
     }
@@ -54,7 +54,7 @@ class Task extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             [['user_id', 'title'], 'required'],
@@ -69,7 +69,7 @@ class Task extends ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
+    public function attributeLabels(): array
     {
         return [
             'id' => Yii::t('app', 'ID'),
@@ -86,25 +86,31 @@ class Task extends ActiveRecord
     }
 
     /**
+     * Returns relation declaration with Customer entity
+     *
      * @return ActiveQuery
      */
-    public function getCustomer()
+    public function getCustomer(): ActiveQuery
     {
         return $this->hasOne(Customer::class, ['id' => 'customer_id']);
     }
 
     /**
+     * Returns relation declaration with User entity
+     *
      * @return ActiveQuery
      */
-    public function getUser()
+    public function getUser(): ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
     /**
+     * Returns associative array of readable status texts. Key of array is a status code
+     *
      * @return array
      */
-    public static function getStatusTexts()
+    public static function getStatusTexts(): array
     {
         return [
             self::STATUS_NEW => Yii::t('app', 'New'),
@@ -114,26 +120,33 @@ class Task extends ActiveRecord
     }
 
     /**
-     * @param $value
-     * @return int|mixed
+     * Returns readable status text by status code
+     *
+     * @param int $value
+     *
+     * @return string|int
      */
-    public function getStatusTextByValue($value)
+    public function getStatusTextByValue(int $value)
     {
         return self::getStatusTexts()[$value] ?? $value;
     }
 
     /**
-     * @return mixed|string
+     * Returns readable task status
+     *
+     * @return string
      */
     public function getStatusText()
     {
-        return self::getStatusTextByValue($this->status);
+        return $this->getStatusTextByValue($this->status);
     }
 
     /**
+     * Returns associative array of readable state texts. Key of array is a state code
+     *
      * @return array
      */
-    public static function getStateTexts()
+    public static function getStateTexts(): array
     {
         return [
             self::STATE_INBOX => Yii::t('app', 'Inbox'),
@@ -143,27 +156,32 @@ class Task extends ActiveRecord
     }
 
     /**
-     * @return mixed
+     * Returns readable task state
+     *
+     * @return string
      */
-    public function getStateText()
+    public function getStateText(): string
     {
         return self::getStateTexts()[$this->state] ?? $this->state;
     }
 
-
     /**
+     * Returns true if the task is overdue
+     *
      * @return bool
      */
-    public function getIsOverdue()
+    public function getIsOverdue(): bool
     {
         return $this->status !== self::STATUS_DONE && strtotime($this->due_date) < time();
     }
 
     /**
+     * Returns true if the task is completed
+     *
      * @return bool
      */
-    public function getIsDone()
+    public function getIsDone(): bool
     {
-        return $this->status == self::STATUS_DONE;
+        return $this->status === self::STATUS_DONE;
     }
 }

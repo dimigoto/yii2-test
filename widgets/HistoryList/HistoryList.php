@@ -4,6 +4,7 @@ namespace app\widgets\HistoryList;
 
 use app\models\search\HistorySearch;
 use app\widgets\Export\Export;
+use kartik\export\ExportMenu;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
@@ -11,28 +12,32 @@ use Yii;
 
 class HistoryList extends Widget
 {
-    /**
-     * @return string
-     */
-    public function run()
-    {
-        $model = new HistorySearch();
+    public $model;
 
+    /**
+     * @inheritdoc
+     */
+    public function run(): string
+    {
         return $this->render('main', [
-            'model' => $model,
-            'linkExport' => $this->getLinkExport(),
-            'dataProvider' => $model->search(Yii::$app->request->queryParams)
+            'exportButtonUrl' => $this->getExportButtonUrl(),
+            'exportButtonText' => Yii::t('app', 'CSV'),
+            'streamExportButtonText' => Yii::t('app', 'Stream CSV'),
+            'streamExportButtonUrl' => Url::to(['/site/stream-export']),
+            'dataProvider' => $this->model->search(Yii::$app->request->queryParams)
         ]);
     }
 
     /**
+     * returns URL to export data in CSV
+     *
      * @return string
      */
-    private function getLinkExport()
+    private function getExportButtonUrl(): string
     {
         $params = Yii::$app->getRequest()->getQueryParams();
         $params = ArrayHelper::merge([
-            'exportType' => Export::FORMAT_CSV
+            'exportType' => ExportMenu::FORMAT_CSV
         ], $params);
         $params[0] = 'site/export';
 
