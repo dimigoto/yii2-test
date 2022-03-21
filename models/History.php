@@ -2,9 +2,11 @@
 
 namespace app\models;
 
+use app\factories\HistoryRelationFactory;
 use app\models\traits\ObjectNameTrait;
 use Yii;
 use yii\db\ActiveQuery;
+use yii\db\ActiveQueryInterface;
 use yii\db\ActiveRecord;
 
 /**
@@ -49,6 +51,27 @@ class History extends ActiveRecord
 
     public const EVENT_CUSTOMER_CHANGE_TYPE = 'customer_change_type';
     public const EVENT_CUSTOMER_CHANGE_QUALITY = 'customer_change_quality';
+
+    /** @var HistoryRelationFactory */
+    private $historyRelationFactory;
+
+    /**
+     * @inheritdoc
+     */
+    public function init(): void
+    {
+        parent::init();
+
+        $this->historyRelationFactory = new HistoryRelationFactory($this);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getRelation($name, $throwException = true): ActiveQueryInterface
+    {
+        return $this->historyRelationFactory->getRelation($name) ?? parent::getRelation($name, $throwException);
+    }
 
     /**
      * @inheritdoc
